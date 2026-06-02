@@ -673,7 +673,7 @@ class MainWindow(QtWidgets.QMainWindow):
         viewport_layout.addWidget(toolbar_card)
 
         self.plotter = QtInteractor(self)
-        self.plotter.set_background("#F2F6FA")
+        self.plotter.set_background("#E8EDF3")
 
         self.setup_camera_interaction()
 
@@ -1293,7 +1293,7 @@ class MainWindow(QtWidgets.QMainWindow):
             else:
                 self.plotter.add_mesh(
                     mesh,
-                    color="#B8C4D8",
+                    color="#9AA7B8",
                     show_edges=False,
                     smooth_shading=smooth_shading,
                     name="solid_surface",
@@ -1305,7 +1305,7 @@ class MainWindow(QtWidgets.QMainWindow):
         elif not self.show_wireframe:
             self.plotter.add_mesh(
                 mesh,
-                color="#B8C4D8",
+                color="#9AA7B8",
                 show_edges=False,
                 smooth_shading=smooth_shading,
                 name="solid_surface",
@@ -1318,9 +1318,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.plotter.add_mesh(
                 mesh,
                 style="wireframe",
-                color="#EAF2FF",
-                line_width=1.0,
-                opacity=0.62 if self.show_texture else 1.0,
+                color="#1E40AF",
+                line_width=1.25,
+                opacity=0.72 if self.show_texture else 1.0,
                 name="wireframe_overlay"
             )
 
