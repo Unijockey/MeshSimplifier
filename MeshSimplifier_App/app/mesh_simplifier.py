@@ -1318,9 +1318,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.plotter.add_mesh(
                 mesh,
                 style="wireframe",
-                color="#1E40AF",
+                color="#111111",
                 line_width=1.25,
-                opacity=0.72 if self.show_texture else 1.0,
+                opacity=0.78 if self.show_texture else 1.0,
                 name="wireframe_overlay"
             )
 
