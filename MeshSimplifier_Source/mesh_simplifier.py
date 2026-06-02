@@ -1272,7 +1272,8 @@ class MainWindow(QtWidgets.QMainWindow):
                     self.plotter.add_mesh(
                         part["mesh"],
                         texture=part["texture"],
-                        show_edges=False,
+                        show_edges=self.show_wireframe,
+                        edge_color="#111111",
                         smooth_shading=smooth_shading,
                         name=f"textured_surface_{index}",
                         specular=0.12,
@@ -1283,7 +1284,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.plotter.add_mesh(
                     mesh,
                     texture=texture,
-                    show_edges=False,
+                    show_edges=self.show_wireframe,
+                    edge_color="#111111",
                     smooth_shading=smooth_shading,
                     name="textured_surface",
                     specular=0.12,
@@ -1294,7 +1296,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.plotter.add_mesh(
                     mesh,
                     color="#9AA7B8",
-                    show_edges=False,
+                    show_edges=self.show_wireframe,
+                    edge_color="#111111",
                     smooth_shading=smooth_shading,
                     name="solid_surface",
                     specular=0.18,
@@ -1306,7 +1309,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.plotter.add_mesh(
                 mesh,
                 color="#9AA7B8",
-                show_edges=False,
+                show_edges=True,
+                edge_color="#111111",
                 smooth_shading=smooth_shading,
                 name="solid_surface",
                 specular=0.18,
@@ -1319,8 +1323,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 mesh,
                 style="wireframe",
                 color="#111111",
-                line_width=1.25,
-                opacity=0.95 if self.show_texture else 1.0,
+                line_width=1.5,
+                opacity=1.0,
                 name="wireframe_overlay"
             )
 
