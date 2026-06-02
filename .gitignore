@@ -1,0 +1,25 @@
+# Python cache and runtime output
+__pycache__/
+*.pyc
+*.pyo
+_lod_cache/
+
+# Build outputs
+build/
+dist/
+*.egg-info/
+
+# Local portable Python runtime.
+# The full runtime package should be distributed as a release zip, not committed.
+MeshSimplifier_App/python/
+
+# Temporary generated mesh outputs
+*_lod_*.obj
+*_lod_*.mtl
+_*.obj
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
