@@ -70,6 +70,12 @@ cd K:\WHU\Gaodeng\GUI\MeshSimplifier_Source
 python mesh_simplifier.py
 ```
 
+如果是在新的 Python 环境中运行，可以先安装依赖：
+
+```powershell
+pip install -r ..\requirements.txt
+```
+
 其中：
 
 - `mesh_simplifier.py` 是主界面程序
