@@ -601,7 +601,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.cache = {}
 
         self.show_texture = True
-        self.show_wireframe = False
+        self.show_wireframe = True
         self.texture_safe_floor = True
         self.force_rebuild = False
 
@@ -814,9 +814,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.btn_texture.setObjectName("Ghost")
         self.btn_texture.clicked.connect(self.toggle_texture)
 
-        self.btn_wireframe = QtWidgets.QPushButton("网格 OFF")
+        self.btn_wireframe = QtWidgets.QPushButton("网格 ON")
         self.btn_wireframe.setCheckable(True)
-        self.btn_wireframe.setChecked(False)
+        self.btn_wireframe.setChecked(True)
         self.btn_wireframe.setObjectName("Ghost")
         self.btn_wireframe.clicked.connect(self.toggle_wireframe)
 
@@ -1320,7 +1320,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 style="wireframe",
                 color="#111111",
                 line_width=1.25,
-                opacity=0.78 if self.show_texture else 1.0,
+                opacity=0.95 if self.show_texture else 1.0,
                 name="wireframe_overlay"
             )
 
