@@ -1247,6 +1247,39 @@ class MainWindow(QtWidgets.QMainWindow):
         except Exception as e:
             self.set_status(f"读取失败：{e}", "#FF7B8A")
 
+    def apply_black_edge_style(self, actor, line_width=1.6):
+        try:
+            prop = actor.GetProperty()
+            prop.EdgeVisibilityOn()
+            prop.SetEdgeColor(0.0, 0.0, 0.0)
+            prop.SetLineWidth(line_width)
+            if hasattr(prop, "SetRenderLinesAsTubes"):
+                prop.SetRenderLinesAsTubes(True)
+            elif hasattr(prop, "RenderLinesAsTubesOn"):
+                prop.RenderLinesAsTubesOn()
+        except Exception:
+            pass
+
+    def apply_black_wireframe_style(self, actor):
+        try:
+            prop = actor.GetProperty()
+            prop.SetRepresentationToWireframe()
+            prop.SetColor(0.0, 0.0, 0.0)
+            prop.SetEdgeColor(0.0, 0.0, 0.0)
+            prop.SetAmbientColor(0.0, 0.0, 0.0)
+            prop.SetDiffuseColor(0.0, 0.0, 0.0)
+            prop.SetSpecular(0.0)
+            prop.SetOpacity(1.0)
+            prop.SetLineWidth(2.2)
+            if hasattr(prop, "LightingOff"):
+                prop.LightingOff()
+            if hasattr(prop, "SetRenderLinesAsTubes"):
+                prop.SetRenderLinesAsTubes(True)
+            elif hasattr(prop, "RenderLinesAsTubesOn"):
+                prop.RenderLinesAsTubesOn()
+        except Exception:
+            pass
+
     def render_mesh(self, mesh, texture=None, reset_camera=False):
         self.current_mesh_obj = mesh
         self.current_texture_obj = texture
@@ -1269,7 +1302,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.show_texture:
             if is_multi_texture_payload(texture):
                 for index, part in enumerate(texture.get("parts", [])):
-                    self.plotter.add_mesh(
+                    actor = self.plotter.add_mesh(
                         part["mesh"],
                         texture=part["texture"],
                         show_edges=self.show_wireframe,
@@ -1280,8 +1313,10 @@ class MainWindow(QtWidgets.QMainWindow):
                         diffuse=0.88,
                         ambient=0.25,
                     )
+                    if self.show_wireframe:
+                        self.apply_black_edge_style(actor)
             elif texture is not None:
-                self.plotter.add_mesh(
+                actor = self.plotter.add_mesh(
                     mesh,
                     texture=texture,
                     show_edges=self.show_wireframe,
@@ -1292,8 +1327,10 @@ class MainWindow(QtWidgets.QMainWindow):
                     diffuse=0.88,
                     ambient=0.25,
                 )
+                if self.show_wireframe:
+                    self.apply_black_edge_style(actor)
             else:
-                self.plotter.add_mesh(
+                actor = self.plotter.add_mesh(
                     mesh,
                     color="#9AA7B8",
                     show_edges=self.show_wireframe,
@@ -1304,13 +1341,14 @@ class MainWindow(QtWidgets.QMainWindow):
                     diffuse=0.82,
                     ambient=0.28,
                 )
+                if self.show_wireframe:
+                    self.apply_black_edge_style(actor)
 
         elif not self.show_wireframe:
             self.plotter.add_mesh(
                 mesh,
                 color="#9AA7B8",
-                show_edges=True,
-                edge_color="#111111",
+                show_edges=False,
                 smooth_shading=smooth_shading,
                 name="solid_surface",
                 specular=0.18,
@@ -1319,14 +1357,16 @@ class MainWindow(QtWidgets.QMainWindow):
             )
 
         if self.show_wireframe:
-            self.plotter.add_mesh(
+            actor = self.plotter.add_mesh(
                 mesh,
                 style="wireframe",
                 color="#111111",
-                line_width=1.5,
+                line_width=2.2,
                 opacity=1.0,
+                lighting=False,
                 name="wireframe_overlay"
             )
+            self.apply_black_wireframe_style(actor)
 
         if not hasattr(self, "chk_axes") or self.chk_axes.isChecked():
             try:
